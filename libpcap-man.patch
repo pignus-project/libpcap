@@ -1,0 +1,23 @@
+--- libpcap-0.9.5/pcap.3.man	2006-01-22 21:12:10.000000000 +0100
++++ libpcap-0.9.5/pcap.3	2006-11-03 15:36:28.000000000 +0100
+@@ -215,9 +215,9 @@
+ .I fname
+ specifies the name of the file to open. The file has
+ the same format as those used by
+-.B tcpdump(1)
++.B tcpdump(8)
+ and
+-.BR tcpslice(1) .
++.BR tcpslice(8) .
+ The name "-" in a synonym for
+ .BR stdin .
+ Alternatively, you may call
+@@ -1283,7 +1283,7 @@
+ closes the ``savefile.''
+ .PP
+ .SH SEE ALSO
+-tcpdump(1), tcpslice(1)
++tcpdump(8), tcpslice(8)
+ .SH AUTHORS
+ The original authors are:
+ .LP

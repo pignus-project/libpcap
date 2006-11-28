@@ -1,0 +1,51 @@
+--- libpcap-0.9.5/Makefile.in.shared	2003-12-15 02:35:03.000000000 +0100
++++ libpcap-0.9.5/Makefile.in	2006-11-28 12:01:14.000000000 +0100
+@@ -22,6 +22,7 @@
+ #
+ # Various configurable paths (remember to edit Makefile.in, not Makefile)
+ #
++VERSION := $(shell cat VERSION)
+ 
+ # Top level hierarchy
+ prefix = @prefix@
+@@ -49,7 +50,7 @@
+ DYEXT = @DYEXT@
+ 
+ # Standard CFLAGS
+-CFLAGS = $(CCOPT) $(INCLS) $(DEFS)
++CFLAGS = $(CCOPT) $(INCLS) $(DEFS) -fPIC -DPIC
+ 
+ INSTALL = @INSTALL@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@
+@@ -95,9 +96,14 @@
+ TAGFILES = \
+ 	$(SRC) $(HDR) $(TAGHDR)
+ 
+-CLEANFILES = $(OBJ) libpcap.a $(GENSRC) $(GENHDR) lex.yy.c
+ 
+-all: libpcap.a
++
++CLEANFILES = $(OBJ) libpcap.a $(GENSRC) $(GENHDR) lex.yy.c libpcap.so.$(VERSION)
++
++all: libpcap.a libpcap.so.$(VERSION)
++
++libpcap.so.$(VERSION): $(OBJ)
++	gcc -shared -Wl,-soname -Wl,libpcap.so.$(SOVERSION) -o libpcap.so.$(VERSION) $(OBJ) 
+ 
+ libpcap.a: $(OBJ)
+ 	@rm -f $@
+@@ -170,10 +176,13 @@
+ bpf_filter.o: bpf_filter.c
+ 	$(CC) $(CFLAGS) -c bpf_filter.c
+ 
+-install: libpcap.a 
++install: libpcap.a libpcap.so.$(VERSION)
+ 	[ -d $(DESTDIR)$(libdir) ] || \
+ 	    (mkdir -p $(DESTDIR)$(libdir); chmod 755 $(DESTDIR)$(libdir))
+ 	$(INSTALL_DATA) libpcap.a $(DESTDIR)$(libdir)/libpcap.a
++	$(INSTALL_PROGRAM) libpcap.so.$(VERSION)  $(DESTDIR)$(libdir)/libpcap.so.$(VERSION)
++	ln -sf libpcap.so.$(VERSION) $(DESTDIR)$(libdir)/libpcap.so.$(SOVERSION)
++	ln -sf libpcap.so.$(SOVERSION) $(DESTDIR)$(libdir)/libpcap.so
+ 	$(RANLIB) $(DESTDIR)$(libdir)/libpcap.a
+ 	[ -d $(DESTDIR)$(includedir) ] || \
+ 	    (mkdir -p $(DESTDIR)$(includedir); chmod 755 $(DESTDIR)$(includedir))

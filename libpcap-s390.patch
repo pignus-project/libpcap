@@ -1,0 +1,12 @@
+--- libpcap-0.7.2/pcap-linux.c.s390	2003-02-26 07:45:32.000000000 +0100
++++ libpcap-0.7.2/pcap-linux.c	2003-02-27 16:48:48.000000000 +0100
+@@ -1214,6 +1214,9 @@
+ 					fatal_err = 1;
+ 				break;
+ 			}
++		/* Hack to make things work on s390 ctc interfaces */
++		if (strncmp("ctc", device, 3) == 0)
++			handle->linktype = DLT_EN10MB;
+ 		} else {
+ 			/*
+ 			 * This is cooked mode.

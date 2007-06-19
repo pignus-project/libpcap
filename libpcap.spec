@@ -2,7 +2,7 @@
 
 Name: libpcap
 Epoch: 14
-Version: 0.9.5
+Version: 0.9.6
 Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
@@ -13,7 +13,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 Patch1: libpcap-man.patch
-Patch2: libpcap-shared.patch
+Patch2: libpcap-0.9.6-shared.patch
 Patch3: libpcap-s390.patch
 Patch4: libpcap-0.8.3-ppp.patch
 
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/pcap.3*
 
 %changelog
+* Tue Jun 19 2007 Miroslav Lichvar <mlichvar@redhat.com> 14:0.9.6-1
+- update to 0.9.6
+
 * Tue Nov 28 2006 Miroslav Lichvar <mlichvar@redhat.com> 14:0.9.5-1
 - split from tcpdump package (#193657)
 - update to 0.9.5

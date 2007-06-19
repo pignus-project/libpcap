@@ -1,5 +1,10 @@
---- libpcap-0.9.5/Makefile.in.shared	2003-12-15 02:35:03.000000000 +0100
-+++ libpcap-0.9.5/Makefile.in	2006-11-28 12:01:14.000000000 +0100
+--- libpcap-0.9.6/VERSION.shared	2006-09-19 21:27:07.000000000 +0200
++++ libpcap-0.9.6/VERSION	2007-06-19 13:30:34.000000000 +0200
+@@ -1 +1 @@
+-0.9.5
++0.9.6
+--- libpcap-0.9.6/Makefile.in.shared	2006-09-25 20:06:00.000000000 +0200
++++ libpcap-0.9.6/Makefile.in	2007-06-19 13:30:15.000000000 +0200
 @@ -22,6 +22,7 @@
  #
  # Various configurable paths (remember to edit Makefile.in, not Makefile)
@@ -8,16 +13,7 @@
  
  # Top level hierarchy
  prefix = @prefix@
-@@ -49,7 +50,7 @@
- DYEXT = @DYEXT@
- 
- # Standard CFLAGS
--CFLAGS = $(CCOPT) $(INCLS) $(DEFS)
-+CFLAGS = $(CCOPT) $(INCLS) $(DEFS) -fPIC -DPIC
- 
- INSTALL = @INSTALL@
- INSTALL_PROGRAM = @INSTALL_PROGRAM@
-@@ -95,9 +96,14 @@
+@@ -96,9 +97,14 @@ TAGHDR = \
  TAGFILES = \
  	$(SRC) $(HDR) $(TAGHDR)
  
@@ -34,7 +30,7 @@
  
  libpcap.a: $(OBJ)
  	@rm -f $@
-@@ -170,10 +176,13 @@
+@@ -171,10 +177,13 @@ bpf_filter.c: $(srcdir)/bpf/net/bpf_filt
  bpf_filter.o: bpf_filter.c
  	$(CC) $(CFLAGS) -c bpf_filter.c
  

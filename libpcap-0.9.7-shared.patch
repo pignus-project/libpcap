@@ -1,10 +1,5 @@
---- libpcap-0.9.6/VERSION.shared	2006-09-19 21:27:07.000000000 +0200
-+++ libpcap-0.9.6/VERSION	2007-06-19 13:30:34.000000000 +0200
-@@ -1 +1 @@
--0.9.5
-+0.9.6
---- libpcap-0.9.6/Makefile.in.shared	2006-09-25 20:06:00.000000000 +0200
-+++ libpcap-0.9.6/Makefile.in	2007-06-19 13:30:15.000000000 +0200
+--- libpcap-0.9.7/Makefile.in.shared	2007-07-24 04:35:15.000000000 +0200
++++ libpcap-0.9.7/Makefile.in	2007-07-24 14:52:43.000000000 +0200
 @@ -22,6 +22,7 @@
  #
  # Various configurable paths (remember to edit Makefile.in, not Makefile)
@@ -13,7 +8,7 @@
  
  # Top level hierarchy
  prefix = @prefix@
-@@ -96,9 +97,14 @@ TAGHDR = \
+@@ -97,9 +98,14 @@ TAGHDR = \
  TAGFILES = \
  	$(SRC) $(HDR) $(TAGHDR)
  
@@ -30,7 +25,7 @@
  
  libpcap.a: $(OBJ)
  	@rm -f $@
-@@ -171,10 +177,13 @@ bpf_filter.c: $(srcdir)/bpf/net/bpf_filt
+@@ -172,10 +178,13 @@ bpf_filter.c: $(srcdir)/bpf/net/bpf_filt
  bpf_filter.o: bpf_filter.c
  	$(CC) $(CFLAGS) -c bpf_filter.c
  

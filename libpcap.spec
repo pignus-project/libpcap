@@ -3,10 +3,10 @@
 Name: libpcap
 Epoch: 14
 Version: 0.9.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
-License: BSD
+License: BSD with advertising
 URL: http://www.tcpdump.org
 BuildRequires: glibc-kernheaders >= 2.2.0 bison flex
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/pcap.3*
 
 %changelog
+* Wed Aug 22 2007 Miroslav Lichvar <mlichvar@redhat.com> 14:0.9.7-3
+- update license tag
+
 * Wed Jul 25 2007 Jesse Keating <jkeating@redhat.com> - 14:0.9.7-2
 - Rebuild for RH #249435
 

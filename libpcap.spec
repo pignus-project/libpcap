@@ -2,8 +2,8 @@
 
 Name: libpcap
 Epoch: 14
-Version: 0.9.7
-Release: 3%{?dist}
+Version: 0.9.8
+Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/pcap.3*
 
 %changelog
+* Wed Oct 24 2007 Miroslav Lichvar <mlichvar@redhat.com> 14:0.9.8-1
+- update to 0.9.8
+
 * Wed Aug 22 2007 Miroslav Lichvar <mlichvar@redhat.com> 14:0.9.7-3
 - update license tag
 

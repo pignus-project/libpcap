@@ -3,7 +3,7 @@
 Name: libpcap
 Epoch: 14
 Version: 0.9.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/pcap.3*
 
 %changelog
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 14:0.9.8-2
+- Autorebuild for GCC 4.3
+
 * Wed Oct 24 2007 Miroslav Lichvar <mlichvar@redhat.com> 14:0.9.8-1
 - update to 0.9.8
 

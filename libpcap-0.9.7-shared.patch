@@ -21,7 +21,7 @@
 +all: libpcap.a libpcap.so.$(VERSION)
 +
 +libpcap.so.$(VERSION): $(OBJ)
-+	gcc -shared -Wl,-soname -Wl,libpcap.so.$(SOVERSION) -o libpcap.so.$(VERSION) $(OBJ) 
++	gcc -shared -Wl,-soname -Wl,libpcap.so.$(SOVERSION) $(CFLAGS) -o libpcap.so.$(VERSION) $(OBJ) 
  
  libpcap.a: $(OBJ)
  	@rm -f $@

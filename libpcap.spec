@@ -1,21 +1,23 @@
-%define pcap_sover 0.9
-
 Name: libpcap
 Epoch: 14
-Version: 0.9.8
-Release: 4%{?dist}
+Version: 1.0.0
+Release: 1.20090716git6de2de%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
-BuildRequires: glibc-kernheaders >= 2.2.0 bison flex
+BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
-Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
+#Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
+# git snapshot from git://bpf.tcpdump.org/libpcap
+Source: libpcap-20090716git6de2de.tar.gz
 Patch1: libpcap-man.patch
-Patch2: libpcap-0.9.7-shared.patch
+Patch2: libpcap-multilib.patch
 Patch3: libpcap-s390.patch
 Patch4: libpcap-0.8.3-ppp.patch
+Patch5: libpcap-oneshot.patch
+# temporarily provide old soname
+Patch6: libpcap-oldsoname.patch
 
 %description
 Libpcap provides a portable framework for low-level network
@@ -47,22 +49,25 @@ This package provides the libraries, include files, and other
 resources needed for developing libpcap applications.
  
 %prep
-%setup -q
+%setup -q -n libpcap
+echo '1.0.0' > VERSION
 
 %patch1 -p1 -b .man 
-%patch2 -p1 -b .shared 
+%patch2 -p1 -b .multilib
 %patch3 -p1 -b .s390
 %patch4 -p0 -b .ppp
+%patch5 -p1 -b .oneshot
+%patch6 -p1 -b .oldsoname
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS)"
-%configure --enable-ipv6
-make SOVERSION=%{pcap_sover}
+%configure --enable-ipv6 --enable-bluetooth
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make SOVERSION=%{pcap_sover} DESTDIR=$RPM_BUILD_ROOT install
+make DESTDIR=$RPM_BUILD_ROOT install
 rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 
 %clean
@@ -76,14 +81,22 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc LICENSE README CHANGES CREDITS doc/pcap.txt
 %{_libdir}/libpcap.so.*
+%{_mandir}/man7/pcap*.7*
 
 %files devel
 %defattr(-,root,root)
+%{_bindir}/pcap-config
 %{_includedir}/pcap*.h
+%{_includedir}/pcap
 %{_libdir}/libpcap.so
-%{_mandir}/man3/pcap.3*
+%{_mandir}/man1/pcap-config.1*
+%{_mandir}/man3/pcap*.3*
+%{_mandir}/man5/pcap*.5*
 
 %changelog
+* Wed Jul 22 2009 Miroslav Lichvar <mlichvar@redhat.com> 14:1.0.0-1.20090716git6de2de
+- update to 1.0.0, git snapshot 20090716git6de2de
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14:0.9.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 

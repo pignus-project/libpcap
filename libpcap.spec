@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
 Version: 1.0.0
-Release: 1.20090716git6de2de%{?dist}
+Release: 2.20090716git6de2de%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -94,6 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14:1.0.0-2.20090716git6de2de
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Wed Jul 22 2009 Miroslav Lichvar <mlichvar@redhat.com> 14:1.0.0-1.20090716git6de2de
 - update to 1.0.0, git snapshot 20090716git6de2de
 

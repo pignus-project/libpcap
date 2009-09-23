@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
 Version: 1.0.0
-Release: 2.20090716git6de2de%{?dist}
+Release: 3.20090922gite154e2%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -10,14 +10,11 @@ BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 #Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 # git snapshot from git://bpf.tcpdump.org/libpcap
-Source: libpcap-20090716git6de2de.tar.gz
+Source: libpcap-1.0.0-20090922gite154e2.tar.bz2
 Patch1: libpcap-man.patch
 Patch2: libpcap-multilib.patch
 Patch3: libpcap-s390.patch
 Patch4: libpcap-0.8.3-ppp.patch
-Patch5: libpcap-oneshot.patch
-# temporarily provide old soname
-Patch6: libpcap-oldsoname.patch
 
 %description
 Libpcap provides a portable framework for low-level network
@@ -56,8 +53,6 @@ echo '1.0.0' > VERSION
 %patch2 -p1 -b .multilib
 %patch3 -p1 -b .s390
 %patch4 -p0 -b .ppp
-%patch5 -p1 -b .oneshot
-%patch6 -p1 -b .oldsoname
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS)"
@@ -94,6 +89,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Wed Sep 23 2009 Miroslav Lichvar <mlichvar@redhat.com> 14:1.0.0-1.20090922gite154e2
+- update to snapshot 20090922gite154e2
+- drop old soname
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14:1.0.0-2.20090716git6de2de
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 

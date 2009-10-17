@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
 Version: 1.0.0
-Release: 3.20090922gite154e2%{?dist}
+Release: 4.20090922gite154e2%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -54,6 +54,11 @@ echo '1.0.0' > VERSION
 %patch3 -p1 -b .s390
 %patch4 -p0 -b .ppp
 
+#sparc needs -fPIC 
+%ifarch %{sparc}
+sed -i -e 's|-fpic|-fPIC|g' configure
+%endif
+
 %build
 export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS)"
 %configure --enable-ipv6 --enable-bluetooth
@@ -89,6 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Sat Oct 17 2009 Dennis Gilmore <dennis@ausil.us> 14:1.0.0-4.20090922gite154e2
+- use -fPIC on sparc arches
+
 * Wed Sep 23 2009 Miroslav Lichvar <mlichvar@redhat.com> 14:1.0.0-3.20090922gite154e2
 - update to snapshot 20090922gite154e2
 - drop old soname

@@ -1,16 +1,15 @@
 Name: libpcap
 Epoch: 14
-Version: 1.0.0
-Release: 5.20091201git117cb5%{?dist}
+Version: 1.1.1
+Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
 BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-#Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
-# git snapshot from git://bpf.tcpdump.org/libpcap
-Source: libpcap-1.0.0-20091201git117cb5.tar.bz2
+
+Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 Patch1: libpcap-man.patch
 Patch2: libpcap-multilib.patch
 Patch3: libpcap-s390.patch
@@ -46,8 +45,7 @@ This package provides the libraries, include files, and other
 resources needed for developing libpcap applications.
  
 %prep
-%setup -q -n libpcap
-echo '1.0.0' > VERSION
+%setup -q
 
 %patch1 -p1 -b .man 
 %patch2 -p1 -b .multilib
@@ -60,8 +58,7 @@ sed -i -e 's|-fpic|-fPIC|g' configure
 %endif
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS)"
-%configure --enable-ipv6 --enable-bluetooth
+%configure
 make %{?_smp_mflags}
 
 %install
@@ -79,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc LICENSE README CHANGES CREDITS doc/pcap.txt
+%doc LICENSE README CHANGES CREDITS
 %{_libdir}/libpcap.so.*
 %{_mandir}/man7/pcap*.7*
 
@@ -94,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Tue Apr 06 2010 Miroslav Lichvar <mlichvar@redhat.com> 14:1.1.1-1
+- update to 1.1.1
+
 * Wed Dec 16 2009 Miroslav Lichvar <mlichvar@redhat.com> 14:1.0.0-5.20091201git117cb5
 - update to snapshot 20091201git117cb5
 

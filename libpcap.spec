@@ -13,6 +13,7 @@ Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 Patch1: libpcap-man.patch
 Patch2: libpcap-multilib.patch
 Patch3: libpcap-s390.patch
+Patch4: libpcap-nodev.patch
 
 %description
 Libpcap provides a portable framework for low-level network
@@ -49,6 +50,7 @@ resources needed for developing libpcap applications.
 %patch1 -p1 -b .man 
 %patch2 -p1 -b .multilib
 %patch3 -p1 -b .s390
+%patch4 -p1 -b .nodev
 
 #sparc needs -fPIC 
 %ifarch %{sparc}

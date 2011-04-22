@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
 Version: 1.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -92,6 +92,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Fri Apr 22 2011 Miroslav Lichvar <mlichvar@redhat.com> 14:1.1.1-3
+- ignore /sys/net/dev files on ENODEV (#693943)
+- drop ppp patch
+- compile with -fno-strict-aliasing
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14:1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 

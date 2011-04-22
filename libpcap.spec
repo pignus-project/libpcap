@@ -58,6 +58,7 @@ sed -i -e 's|-fpic|-fPIC|g' configure
 %endif
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 %configure
 make %{?_smp_mflags}
 

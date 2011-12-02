@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
-Version: 1.1.1
-Release: 4%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -13,8 +13,7 @@ Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 Patch1: libpcap-man.patch
 Patch2: libpcap-multilib.patch
 Patch3: libpcap-s390.patch
-Patch4: libpcap-nodev.patch
-Patch5: libpcap-fragment.patch
+Patch4: libpcap-fragment.patch
 
 %description
 Libpcap provides a portable framework for low-level network
@@ -51,8 +50,7 @@ resources needed for developing libpcap applications.
 %patch1 -p1 -b .man 
 %patch2 -p1 -b .multilib
 %patch3 -p1 -b .s390
-%patch4 -p1 -b .nodev
-%patch5 -p1 -b .fragment
+%patch4 -p1 -b .fragment
 
 #sparc needs -fPIC 
 %ifarch %{sparc}
@@ -94,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Fri Dec 02 2011 Michal Sekletar <msekleta@redhat.com> 14:1.2.0-1
+- update to 1.2.0
+
 * Tue Sep 06 2011 Michal Sekletar <msekleta@redhat.com> 14:1.1.1-4
 - fix capture of fragmented ipv6 packets
 

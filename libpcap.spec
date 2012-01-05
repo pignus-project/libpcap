@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
 Version: 1.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -90,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Thu Jan 05 2012 Jan Synáček <jsynacek@redhat.com> 14:1.2.1-2
+- Rebuilt for GCC 4.7
+
 * Tue Jan 03 2012 Jan Synáček <jsynacek@redhat.com> 14:1.2.1-1
 - Update to 1.2.1
 - Drop unnecessary -fragment patch

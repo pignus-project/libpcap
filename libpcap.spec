@@ -7,7 +7,6 @@ Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
 BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 Patch1: libpcap-man.patch
@@ -40,17 +39,17 @@ authors created this system-independent API to ease in porting and to
 alleviate the need for several system-dependent packet capture modules
 in each application.
 
-This package provides the libraries, include files, and other 
+This package provides the libraries, include files, and other
 resources needed for developing libpcap applications.
- 
+
 %prep
 %setup -q
 
-%patch1 -p1 -b .man 
+%patch1 -p1 -b .man
 %patch2 -p1 -b .multilib
 %patch3 -p1 -b .s390
 
-#sparc needs -fPIC 
+#sparc needs -fPIC
 %ifarch %{sparc}
 sed -i -e 's|-fpic|-fPIC|g' configure
 %endif
@@ -61,13 +60,8 @@ export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 make DESTDIR=$RPM_BUILD_ROOT install
 rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 

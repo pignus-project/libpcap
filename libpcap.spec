@@ -1,17 +1,18 @@
 Name: libpcap
 Epoch: 14
-Version: 1.4.0
-Release: 2%{?dist}
+Version: 1.5.0
+Release: 1.20131108git459712e%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
 BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
 
-Source: http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
-Patch1: libpcap-man.patch
-Patch2: libpcap-multilib.patch
-Patch3: libpcap-s390.patch
+Source:  libpcap-1.5.0-20131108git459712e.tar.gz
+Source1: generate-tarball.sh
+Patch1:  libpcap-man.patch
+Patch2:  libpcap-multilib.patch
+Patch3:  libpcap-s390.patch
 
 %description
 Libpcap provides a portable framework for low-level network
@@ -84,6 +85,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Fri Nov 08 2013 Michal Sekletar <msekleta@redhat.com> - 14:1.5.0-1.20131108git459712e
+- update to snapshot 20131108git459712e
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14:1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 

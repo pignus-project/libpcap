@@ -1,15 +1,14 @@
 Name: libpcap
 Epoch: 14
-Version: 1.5.0
-Release: 1.20131108git459712e%{?dist}
+Version: 1.5.1
+Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
 BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
 
-Source:  libpcap-1.5.0-20131108git459712e.tar.gz
-Source1: generate-tarball.sh
+Source:  http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 Patch1:  libpcap-man.patch
 Patch2:  libpcap-multilib.patch
 Patch3:  libpcap-s390.patch
@@ -85,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Thu Nov 28 2013 Michal Sekletar <msekleta@redhat.com> - 14:1.5.1-1
+- update to 1.5.1
+
 * Fri Nov 08 2013 Michal Sekletar <msekleta@redhat.com> - 14:1.5.0-1.20131108git459712e
 - update to snapshot 20131108git459712e
 

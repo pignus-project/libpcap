@@ -1,12 +1,12 @@
 Name: libpcap
 Epoch: 14
 Version: 1.5.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
-BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
+BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel libnl-devel
 
 Source:  http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 Patch1:  libpcap-man.patch
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Fri Mar 28 2014 Michal Sekletar <msekleta@redhat.com> - 14:1.5.3-2
+- link against libnl (#765716)
+
 * Wed Jan 15 2014 Michal Sekletar <msekleta@redhat.com> - 14:1.5.3-1
 - update to 1.5.3
 

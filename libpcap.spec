@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
-Version: 1.5.3
-Release: 5%{?dist}
+Version: 1.6.2
+Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -9,9 +9,11 @@ URL: http://www.tcpdump.org
 BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
 
 Source:  http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
-Patch1:  libpcap-man.patch
-Patch2:  libpcap-multilib.patch
-Patch3:  libpcap-s390.patch
+
+Patch0001:      0001-man-tcpdump-and-tcpslice-have-manpages-in-man8.patch
+Patch0002:      0002-pcap-config-mitigate-multilib-conflict.patch
+Patch0003:      0003-pcap-linux-apparently-ctc-interfaces-on-s390-has-eth.patch
+Patch0004:      0004-pcap-linux-don-t-use-TPACKETV3-for-memory-mmapped-ca.patch
 
 %description
 Libpcap provides a portable framework for low-level network
@@ -44,10 +46,7 @@ resources needed for developing libpcap applications.
 
 %prep
 %setup -q
-
-%patch1 -p1 -b .man
-%patch2 -p1 -b .multilib
-%patch3 -p1 -b .s390
+%autopatch -p1
 
 #sparc needs -fPIC
 %ifarch %{sparc}
@@ -84,6 +83,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Mon Sep 29 2014 Michal Sekletar <msekleta@redhat.com> - 14:1.6.2-1
+- update to 1.6.2 (#1124174)
+- disable TPACKET_V3 support (#1131500)
+
 * Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14:1.5.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 

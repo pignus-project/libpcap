@@ -1,6 +1,22 @@
-diff -up libpcap-1.3.0/pcap-config.in.multilib libpcap-1.3.0/pcap-config.in
---- libpcap-1.3.0/pcap-config.in.multilib	2012-03-29 14:57:32.000000000 +0200
-+++ libpcap-1.3.0/pcap-config.in	2013-03-26 09:56:16.293324264 +0100
+From 5b80ca39b1f01177e98c78bbc622dfda6f7a7e71 Mon Sep 17 00:00:00 2001
+From: Michal Sekletar <msekleta@redhat.com>
+Date: Mon, 29 Sep 2014 08:27:15 +0200
+Subject: [PATCH 2/4] pcap-config: mitigate multilib conflict
+
+libdir path is different on 64bit and 32bit arches. Hence when installing both
+multilib versions on the system yum complains about conflicting pcap-config
+file.
+
+Hence remove libdir references from pcap-config, libdir is in dynamic linker
+path anyway.
+---
+ pcap-config.in | 27 ++++++++-------------------
+ 1 file changed, 8 insertions(+), 19 deletions(-)
+
+diff --git a/pcap-config.in b/pcap-config.in
+index 206be3b..75f2c9f 100644
+--- a/pcap-config.in
++++ b/pcap-config.in
 @@ -7,7 +7,6 @@
  prefix="@prefix@"
  exec_prefix="@exec_prefix@"
@@ -67,3 +83,6 @@ diff -up libpcap-1.3.0/pcap-config.in.multilib libpcap-1.3.0/pcap-config.in
 +		echo "-lpcap"
  	fi
  fi
+-- 
+1.8.3.1
+

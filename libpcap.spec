@@ -6,7 +6,7 @@ Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
-BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
+BuildRequires: glibc-kernheaders >= 2.2.0 bison flex kernel-devel
 
 Source:  http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 

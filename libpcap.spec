@@ -6,7 +6,7 @@ Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
-BuildRequires: glibc-kernheaders >= 2.2.0 bison flex kernel-devel
+BuildRequires: glibc-kernheaders >= 2.2.0 bison flex
 
 Source:  http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 
@@ -86,6 +86,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %changelog
 * Mon Feb 23 2015 Michal Sekletar <msekleta@redhat.com> - 14:1.6.2-2
 - fix scaling of pcap-ng timestamps (#1169322)
+- remove kernel-devel from buildrequires
 
 * Mon Sep 29 2014 Michal Sekletar <msekleta@redhat.com> - 14:1.6.2-1
 - update to 1.6.2 (#1124174)

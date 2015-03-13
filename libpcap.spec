@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
-Version: 1.6.2
-Release: 2%{?dist}
+Version: 1.7.2
+Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -14,7 +14,6 @@ Patch0001:      0001-man-tcpdump-and-tcpslice-have-manpages-in-man8.patch
 Patch0002:      0002-pcap-config-mitigate-multilib-conflict.patch
 Patch0003:      0003-pcap-linux-apparently-ctc-interfaces-on-s390-has-eth.patch
 Patch0004:      0004-pcap-linux-don-t-use-TPACKETV3-for-memory-mmapped-ca.patch
-Patch0005:      0005-Fix-scaling-of-time-stamps.patch
 
 %description
 Libpcap provides a portable framework for low-level network
@@ -84,6 +83,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Fri Mar 13 2015 Michal Sekletar <msekleta@redhat.com> - 14:1.7.2-1
+- update to 1.7.2 (#1201078)
+
 * Mon Feb 23 2015 Michal Sekletar <msekleta@redhat.com> - 14:1.6.2-2
 - fix scaling of pcap-ng timestamps (#1169322)
 - remove kernel-devel from buildrequires

@@ -1,0 +1,77 @@
+From 661a9057b123e794897c8957c29530a5f428ec7b Mon Sep 17 00:00:00 2001
+From: Jakub Sitnicki <jsitnicki@gmail.com>
+Date: Thu, 26 Mar 2015 22:35:29 +0100
+Subject: [PATCH] Fix building Bluetooth Linux Monitor support with BlueZ 5.1+
+
+Starting from version 5.1 BlueZ no longer exports the mgmt.h header
+or any other header that declares the structure of packets passed
+over HCI sockets set to use the HCI monitor channel.
+
+Declare the structure locally and give it the same name as in the
+Linux kernel 3.4+.
+---
+ pcap-bt-monitor-linux.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/pcap-bt-monitor-linux.c b/pcap-bt-monitor-linux.c
+index f193e26..b18bdca 100644
+--- a/pcap-bt-monitor-linux.c
++++ b/pcap-bt-monitor-linux.c
+@@ -34,12 +34,12 @@
+ #endif
+ 
+ #include <errno.h>
++#include <stdint.h>
+ #include <stdlib.h>
+ #include <string.h>
+ 
+ #include <bluetooth/bluetooth.h>
+ #include <bluetooth/hci.h>
+-#include <bluetooth/mgmt.h>
+ 
+ #include "pcap/bluetooth.h"
+ #include "pcap-int.h"
+@@ -49,6 +49,16 @@
+ #define BT_CONTROL_SIZE 32
+ #define INTERFACE_NAME "bluetooth-monitor"
+ 
++/*
++ * Fields and alignment must match the declaration in the Linux kernel 3.4+.
++ * See struct hci_mon_hdr in include/net/bluetooth/hci_mon.h.
++ */
++struct hci_mon_hdr {
++    uint16_t opcode;
++    uint16_t index;
++    uint16_t len;
++} __attribute__((packed));
++
+ int
+ bt_monitor_findalldevs(pcap_if_t **alldevsp, char *err_str)
+ {
+@@ -72,12 +82,12 @@ bt_monitor_read(pcap_t *handle, int max_packets _U_, pcap_handler callback, u_ch
+     ssize_t ret;
+     struct pcap_pkthdr pkth;
+     pcap_bluetooth_linux_monitor_header *bthdr;
+-    struct mgmt_hdr hdr;
++    struct hci_mon_hdr hdr;
+ 
+     bthdr = (pcap_bluetooth_linux_monitor_header*) &handle->buffer[handle->offset];
+ 
+     iv[0].iov_base = &hdr;
+-    iv[0].iov_len = MGMT_HDR_SIZE;
++    iv[0].iov_len = sizeof(hdr);
+     iv[1].iov_base = &handle->buffer[handle->offset + sizeof(pcap_bluetooth_linux_monitor_header)];
+     iv[1].iov_len = handle->snapshot;
+ 
+@@ -103,7 +113,7 @@ bt_monitor_read(pcap_t *handle, int max_packets _U_, pcap_handler callback, u_ch
+         return -1;
+     }
+ 
+-    pkth.caplen = ret - MGMT_HDR_SIZE + sizeof(pcap_bluetooth_linux_monitor_header);
++    pkth.caplen = ret - sizeof(hdr) + sizeof(pcap_bluetooth_linux_monitor_header);
+     pkth.len = pkth.caplen;
+ 
+     for (cmsg = CMSG_FIRSTHDR(&msg); cmsg != NULL; cmsg = CMSG_NXTHDR(&msg, cmsg)) {
+-- 
+2.4.0
+

@@ -6,7 +6,7 @@ Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
 URL: http://www.tcpdump.org
-BuildRequires: glibc-kernheaders >= 2.2.0 bison flex
+BuildRequires: glibc-kernheaders >= 2.2.0 bison flex bluez-libs-devel
 
 Source:  http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
 
@@ -14,6 +14,7 @@ Patch0001:      0001-man-tcpdump-and-tcpslice-have-manpages-in-man8.patch
 Patch0002:      0002-pcap-config-mitigate-multilib-conflict.patch
 Patch0003:      0003-pcap-linux-apparently-ctc-interfaces-on-s390-has-eth.patch
 Patch0004:      0004-pcap-linux-don-t-use-TPACKETV3-for-memory-mmapped-ca.patch
+Patch0005:      0001-Fix-building-Bluetooth-Linux-Monitor-support-with-Bl.patch
 
 %description
 Libpcap provides a portable framework for low-level network
@@ -85,6 +86,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %changelog
 * Tue May 26 2015 Michal Sekletar <msekleta@redhat.com> - 14:1.7.3-1
 - update to 1.7.3 (#1214723)
+- fix build against bluez-5 (#1178297)
 
 * Fri Mar 13 2015 Michal Sekletar <msekleta@redhat.com> - 14:1.7.2-1
 - update to 1.7.2 (#1201078)

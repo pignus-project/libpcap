@@ -1,6 +1,6 @@
 Name: libpcap
 Epoch: 14
-Version: 1.7.2
+Version: 1.7.3
 Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
@@ -83,6 +83,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Tue May 26 2015 Michal Sekletar <msekleta@redhat.com> - 14:1.7.3-1
+- update to 1.7.3 (#1214723)
+
 * Fri Mar 13 2015 Michal Sekletar <msekleta@redhat.com> - 14:1.7.2-1
 - update to 1.7.2 (#1201078)
 

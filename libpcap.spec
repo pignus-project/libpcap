@@ -1,7 +1,7 @@
 Name: libpcap
 Epoch: 14
-Version: 1.7.3
-Release: 2%{?dist}
+Version: 1.7.4
+Release: 1%{?dist}
 Summary: A system-independent interface for user-level packet capture
 Group: Development/Libraries
 License: BSD with advertising
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Mon Jun 29 2015 Michal Sekletar <msekleta@redhat.com> - 14:1.7.4-1
+- update to 1.7.4 (#1236387)
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 14:1.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
